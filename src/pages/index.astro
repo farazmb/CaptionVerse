@@ -1,11 +1,1822 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'CaptionVerse — Free Caption Generator';
+const description =
+  'Find natural Instagram captions for everyday moments, love, selfies, travel, cars, friendship, and more.';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={title} description={description} canonicalPath="/">
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="CaptionVerse home">
+        <span class="brand-mark">c.</span>
+        <span>CaptionVerse</span>
+      </a>
+      <a class="top-link" href="#generator">
+        Create a caption <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-label">
+          <span class="status-dot"></span>
+          YOUR NEXT CAPTION STARTS HERE
+        </div>
+
+        <h1>A photo says a lot.<br /><span>Find the right words.</span></h1>
+
+        <p class="hero-copy">
+          From random camera-roll moments to the pictures you actually plan
+          to post. Find a caption that feels like you.
+        </p>
+
+        <a class="hero-cta" href="#generator">
+          Find my caption <span aria-hidden="true">↓</span>
+        </a>
+
+        <div class="hero-meta">
+          <span><span aria-hidden="true">✳</span> Free to use</span>
+          <span><span aria-hidden="true">✳</span> No sign-up</span>
+          <span><span aria-hidden="true">✳</span> Copy in one click</span>
+        </div>
+      </section>
+
+      <section id="generator" class="generator-section" aria-labelledby="tool-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE CAPTION STUDIO</p>
+            <h2 id="tool-title">What's the post about?</h2>
+            <p class="section-copy">Pick a category. We'll handle the words.</p>
+          </div>
+          <span class="studio-icon" aria-hidden="true">✳</span>
+        </div>
+
+        <div class="tool">
+          <div class="form-step">
+            <span class="step-number" aria-hidden="true">01</span>
+
+            <div class="step-content">
+              <label for="category">Choose your vibe</label>
+              <p class="field-hint">What kind of photo are you posting?</p>
+
+              <select id="category" name="category">
+                <option value="all">Surprise me — all categories</option>
+                <option value="everyday">Everyday life</option>
+                <option value="selfie">Selfies &amp; photos</option>
+                <option value="love">Love &amp; relationships</option>
+                <option value="friendship">Friendship</option>
+                <option value="attitude">Attitude &amp; confidence</option>
+                <option value="funny">Funny &amp; relatable</option>
+                <option value="sad">Sad &amp; introspective</option>
+                <option value="heartbreak">Heartbreak &amp; moving on</option>
+                <option value="travel">Travel &amp; adventure</option>
+                <option value="cars">Cars</option>
+                <option value="fitness">Gym &amp; fitness</option>
+                <option value="food">Food &amp; coffee</option>
+                <option value="nature">Nature &amp; outdoors</option>
+                <option value="birthday">Birthday</option>
+                <option value="work">Work &amp; ambition</option>
+                <option value="night">Night &amp; late thoughts</option>
+                <option value="aesthetic">Minimal &amp; aesthetic</option>
+                <option value="celebration">Celebrations</option>
+              </select>
+
+              <button class="primary" id="generate" type="button">
+                Generate captions <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="results-heading">
+            <div class="results-title-group">
+              <span class="step-number" aria-hidden="true">02</span>
+              <div>
+                <h3>Your captions</h3>
+                <p>Pick the one that feels right and copy it.</p>
+              </div>
+            </div>
+            <span class="results-badge">YOUR PICKS</span>
+          </div>
+
+          <div id="results" class="results" aria-live="polite" aria-busy="false">
+            <div class="empty-state">
+              <span class="empty-icon" aria-hidden="true">✳</span>
+              <p class="empty-title">Your next caption is waiting.</p>
+              <p class="empty-copy">
+                Choose a vibe above and tap Generate captions to get started.
+              </p>
+            </div>
+          </div>
+
+          <button class="text-button" id="more" type="button" hidden>
+            Show me more <span aria-hidden="true">↻</span>
+          </button>
+
+          <p class="privacy-note">Free to use · No account needed · No repeated captions in a batch</p>
+          <p id="feedback" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="closing">
+        <span class="closing-mark" aria-hidden="true">✳</span>
+        <h2>Less overthinking.<br /><span>More posting.</span></h2>
+        <p>
+          Your moment, your mood, your words. Find something that fits
+          and get back to your day.
+        </p>
+        <a href="#generator" class="closing-link">
+          Find your next caption <span aria-hidden="true">↑</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="brand footer-brand" href="/" aria-label="CaptionVerse home">
+        <span class="brand-mark">c.</span>
+        <span>CaptionVerse</span>
+      </a>
+      <p>Find the words. Keep it you.</p>
+      <a href="#generator" class="footer-link">Back to generator ↑</a>
+    </footer>
+  </div>
+
+  <script>
+    const captions: Record<string, string[]> = {
+      everyday: [
+        "A few moments from lately.",
+        "Nothing major, just life.",
+        "A day I wanted to keep.",
+        "Little update from my corner of the world.",
+        "Been a minute, hasn't it?",
+        "Somewhere in the middle of everything.",
+        "Life has been looking a little like this.",
+        "A camera roll kind of week.",
+        "Not much to say. Just wanted to post these.",
+        "A couple of things worth remembering.",
+        "The days are moving fast lately.",
+        "Just leaving this here.",
+        "An ordinary day that felt worth saving.",
+        "A small collection of recent favourites.",
+        "Proof that I do leave the house sometimes.",
+        "No occasion. I just liked these.",
+        "A little bit of everything lately.",
+        "This is what life looks like right now.",
+        "Keeping a record of the good bits.",
+        "Today's little photo dump.",
+        "Nothing planned, just how the day went.",
+        "The kind of day that doesn't need a caption.",
+        "Some bits I didn't want lost in my camera roll.",
+        "Life lately, without the long explanation."
+      ],
+
+      selfie: [
+        "Took one I actually liked.",
+        "This made it out of the camera roll.",
+        "No special reason for this one.",
+        "Felt cute enough to post it.",
+        "A rare appearance on here.",
+        "The lighting did most of the work.",
+        "One for the memories, I guess.",
+        "Me, on a day I had somewhere to be.",
+        "Keeping this one for the grid.",
+        "A photo before I changed my mind.",
+        "Not a bad angle for once.",
+        "Just me being me.",
+        "Had to give this one its moment.",
+        "The camera roll has spoken.",
+        "An outfit deserves at least one picture.",
+        "A little proof I was here.",
+        "I liked the picture. That's the caption.",
+        "A face card kind of day.",
+        "Posted before I could overthink it.",
+        "One good photo can fix the mood.",
+        "Today's version of me.",
+        "Not every picture needs a backstory.",
+        "For no reason other than I liked it.",
+        "Leaving this here and moving on."
+      ],
+
+      love: [
+        "You make the ordinary feel like something special.",
+        "My favourite place is next to you.",
+        "It's the little things you do without thinking.",
+        "Somehow, even silence feels easy with you.",
+        "I'd pick another day with you, every time.",
+        "You make a normal Tuesday feel like a memory.",
+        "I like who I am when I'm around you.",
+        "A lot of my favourite moments have you in them.",
+        "No big speech. Just glad it's you.",
+        "You feel familiar in the best way.",
+        "I could get used to days like this with you.",
+        "The best part was having you there.",
+        "Still smiling about this one.",
+        "Some people just make sense to your heart.",
+        "You turn small moments into the ones I remember.",
+        "If I'm with you, I'm probably good.",
+        "The kind of happiness I don't need to explain.",
+        "I'd save you a seat in every version of my life.",
+        "You make the world feel a little less loud.",
+        "Here's to more moments that look like this.",
+        "My favourite plot twist was meeting you.",
+        "It was never about doing something big. It was you.",
+        "A quiet kind of love, and my favourite kind.",
+        "I hope we get a lot more days like this."
+      ],
+
+      friendship: [
+        "Same people, new stories.",
+        "We never need a proper plan.",
+        "The group chat made it outside.",
+        "Some friendships pick up right where they left off.",
+        "An average day with very unserious people.",
+        "Wouldn't trade these idiots for anything.",
+        "We came for one thing and stayed for three hours.",
+        "The photos are questionable. The memories aren't.",
+        "A little chaos, a lot of love.",
+        "These are my kind of people.",
+        "No context needed with this lot.",
+        "Years later and we're still like this.",
+        "The best plans are usually the last-minute ones.",
+        "Friends who make errands feel like an event.",
+        "A camera roll full of people I'm grateful for.",
+        "The laughs were louder than the music.",
+        "We should probably do this more often.",
+        "Nothing fancy, just a good day with good people.",
+        "The ones who know the whole story.",
+        "Not pictured: the hundred jokes before this.",
+        "Growing up, but not acting like it together.",
+        "Some memories come with a headache from laughing.",
+        "A little reminder of why I keep them around.",
+        "The kind of company that makes time disappear."
+      ],
+
+      attitude: [
+        "I stopped explaining myself to people committed to misunderstanding me.",
+        "Not in competition. I'm on my own timeline.",
+        "I know what I bring, so I don't need to announce it.",
+        "Less proving, more doing.",
+        "I can be kind and still have boundaries.",
+        "Not everyone has to get it.",
+        "Quietly getting better at being myself.",
+        "I don't chase attention. I do my thing.",
+        "Comfortable being the person I actually am.",
+        "No announcement. Just a different standard.",
+        "I learned to leave what doesn't feel right.",
+        "Confidence looks different when it's real.",
+        "Not everything deserves a response.",
+        "Protecting my peace isn't personal.",
+        "I have nothing to prove on a random Tuesday.",
+        "I can wish you well from a distance.",
+        "Growing out of things I once wanted to fit into.",
+        "A little less available, a lot more intentional.",
+        "I don't need the room to agree with me.",
+        "The right things don't require me to pretend.",
+        "Taking myself seriously, finally.",
+        "Not rude. Just no longer overextending myself.",
+        "I'd rather be real than universally liked.",
+        "Some boundaries are the whole lesson."
+      ],
+
+      funny: [
+        "I had a plan. Then I got comfortable.",
+        "Mentally, I clocked out hours ago.",
+        "My hobbies include opening apps and forgetting why.",
+        "I need a weekend after this weekend.",
+        "Doing my best, which varies by the hour.",
+        "If found, return me to my bed.",
+        "The budget said no, but the cart said maybe.",
+        "I came, I saw, I got distracted.",
+        "Trying to get my life together without disturbing my nap schedule.",
+        "A very serious person with very unserious thoughts.",
+        "I deserve a medal for the things I almost did.",
+        "Currently running on snacks and optimism.",
+        "I don't rise and shine. I caffeinate and hope.",
+        "My screen time and I are working through things.",
+        "I need fewer responsibilities and more fries.",
+        "Somehow both tired and unable to sleep.",
+        "It's giving 'I'll do it tomorrow.'",
+        "I have my life together in a very specific imaginary scenario.",
+        "The plot is confusing but the snacks are good.",
+        "One minor inconvenience away from a dramatic exit.",
+        "I love being productive. I also love not doing that.",
+        "Out of office, mentally and emotionally.",
+        "I was going to be mysterious, but I overshared.",
+        "This is the most effort I've made all day."
+      ],
+
+      sad: [
+        "Some days are harder to put into words.",
+        "I've been quiet because I'm figuring things out.",
+        "Not every kind of tired goes away with sleep.",
+        "Some things still cross my mind when I least expect them.",
+        "Trying to be patient with the person I'm becoming.",
+        "A lot can change without anyone noticing.",
+        "I miss the version of life I thought I'd have.",
+        "Some feelings don't need an audience.",
+        "Learning that a bad day isn't a bad life.",
+        "I don't have an update. I'm just taking it day by day.",
+        "It's strange how a place can hold so many old feelings.",
+        "Some chapters end before we're ready.",
+        "I wish a few things had gone differently.",
+        "Sometimes the best I can do is get through today.",
+        "A quiet season, and that's all I'll say.",
+        "Not everything I'm carrying is visible.",
+        "I can be grateful and still have hard days.",
+        "There are things I haven't found the words for yet.",
+        "Healing has a way of being less dramatic than expected.",
+        "A little distant while I get my head straight.",
+        "Some memories feel closer at night.",
+        "Taking things as they come, even when it's difficult.",
+        "I don't need to have it all figured out today.",
+        "Making peace with what I can't change."
+      ],
+
+      heartbreak: [
+        "I can miss what we had and still know why it ended.",
+        "Some goodbyes happen without the conversation you needed.",
+        "I'm learning not to revisit places that hurt me.",
+        "It mattered to me, even if it didn't last.",
+        "Letting go is taking longer than I expected.",
+        "I hope life is kind to you, from a distance.",
+        "I stopped waiting for a different ending.",
+        "Sometimes closure is accepting there won't be more answers.",
+        "I can remember it without wanting it back.",
+        "The hardest part was letting the future go too.",
+        "Not every person we love is meant to stay.",
+        "I wish you well. I just don't wish to go back.",
+        "It took time to understand that silence was an answer.",
+        "Some feelings fade; some simply stop making decisions for you.",
+        "I'm no longer trying to make the past fit the present.",
+        "We were real, even if we weren't forever.",
+        "I made room for myself where the waiting used to be.",
+        "You can care about someone and choose to move on.",
+        "I don't hate the memories. I just live somewhere else now.",
+        "A little less looking back these days.",
+        "I deserved clarity, even if I never got it.",
+        "The end of that story wasn't the end of mine.",
+        "Some doors close quietly. Life keeps going anyway.",
+        "I hope one day this feels like a lesson, not a loss."
+      ],
+
+      travel: [
+        "Took the longer route and didn't regret it.",
+        "A few days somewhere different did me good.",
+        "The view made the early start worth it.",
+        "I could get used to waking up here.",
+        "A place I'll probably talk about for years.",
+        "Less signal, more scenery.",
+        "We got lost once. It improved the trip.",
+        "New streets, familiar feeling of being happy.",
+        "Leaving with more photos than free space.",
+        "I needed a change of scenery, not a new personality.",
+        "A good reminder that the world is bigger than my routine.",
+        "This place has my attention.",
+        "The kind of detour you plan to take again.",
+        "A small escape from the usual.",
+        "Somewhere I'd happily miss a train for.",
+        "The journey was half the reason to go.",
+        "Collecting moments from places I can't pronounce properly.",
+        "Wish I had one more day here.",
+        "I came for the views and stayed for the food.",
+        "Out here making the camera roll work overtime.",
+        "A little farther from home, a little closer to myself.",
+        "The map said turn around. We didn't.",
+        "I won't pretend I wasn't taking pictures the whole time.",
+        "Already thinking about the next trip."
+      ],
+
+      cars: [
+        "A good drive clears a crowded mind.",
+        "Some roads are better without a destination.",
+        "Parked for a minute. Admiring for longer.",
+        "The kind of machine that makes you take the long way home.",
+        "Good music, open road, no rush.",
+        "More than a way to get from A to B.",
+        "A little petrol therapy.",
+        "Clean lines and a clear road.",
+        "I turned around to look at it one more time.",
+        "The driveway has a new favourite view.",
+        "Not saying it's my personality, but it's close.",
+        "A good car makes an ordinary drive feel different.",
+        "Windows down, worries lower.",
+        "Some people see transport. I see engineering.",
+        "The sound alone makes the detour worth it.",
+        "One more look before heading out.",
+        "Built for the drive, not just the picture.",
+        "A quiet road and a full tank.",
+        "The best part of the day was behind the wheel.",
+        "A little appreciation for good design.",
+        "No rush to get there when the drive is this good.",
+        "Found an excuse to take the scenic route.",
+        "It's not just the destination for me.",
+        "Some things are better experienced than explained."
+      ],
+
+      fitness: [
+        "Showed up even when I nearly didn't.",
+        "A little stronger than last month.",
+        "Not every session is a personal best. Still counts.",
+        "The work adds up, even when it feels slow.",
+        "One day at a time, one rep at a time.",
+        "Training for the days I haven't met yet.",
+        "No dramatic transformation, just keeping the promise.",
+        "Today's win was simply getting it done.",
+        "Progress isn't always obvious from the mirror.",
+        "Rest is part of the plan too.",
+        "Learning to respect the process.",
+        "The hardest rep was walking through the door.",
+        "Building habits, not just a physique.",
+        "A small step beats another skipped day.",
+        "I came in tired and left glad I came.",
+        "Consistency looks boring until it works.",
+        "This is me keeping a promise to myself.",
+        "Less comparison, more concentration.",
+        "Not finished, just further along.",
+        "Strong enough to start again tomorrow.",
+        "Some days the win is not quitting.",
+        "No shortcuts, just the next session.",
+        "The goal is to keep showing up.",
+        "Earned my shower today."
+      ],
+
+      food: [
+        "I was going to share, but then I tried it.",
+        "This was the reason we came here.",
+        "Good food deserves a moment of silence.",
+        "Ordered what I came for. No regrets.",
+        "A very successful use of my appetite.",
+        "I would absolutely come back for this.",
+        "The first bite answered every question.",
+        "Today's plans revolved around lunch.",
+        "A little treat turned into the whole event.",
+        "The menu had me at the first page.",
+        "No review, just an empty plate.",
+        "Worth putting the phone down for a second.",
+        "Some places get the little details right.",
+        "Coffee first. Decisions later.",
+        "This is your sign to order the extra side.",
+        "A good cup and nowhere to rush.",
+        "Took a break and made it a proper one.",
+        "The kind of meal you think about later.",
+        "The presentation was nice. The taste was better.",
+        "Came hungry, left very happy.",
+        "Today's highlight came on a plate.",
+        "A table, good company, and something delicious.",
+        "I have absolutely no notes.",
+        "Next time I'm ordering the same thing."
+      ],
+
+      nature: [
+        "Stopped for a minute and stayed longer.",
+        "The air felt different out here.",
+        "A reminder to look up once in a while.",
+        "Green looks good on the world.",
+        "Nothing to do here except be here.",
+        "The sky did something worth noticing.",
+        "Found a little quiet away from everything.",
+        "The kind of view that makes you slow down.",
+        "A walk with no real destination.",
+        "Clouds had better plans than my schedule.",
+        "Needed some fresh air more than I knew.",
+        "A few minutes outside changed the whole mood.",
+        "Some places make silence feel full.",
+        "The light was too good to walk past.",
+        "A small patch of calm in a busy week.",
+        "Today the sky deserves the post.",
+        "Let the day take its time.",
+        "I forgot to check my phone for a while.",
+        "Nothing curated. Just a lovely view.",
+        "The world is still beautiful in the middle of everything.",
+        "Found a reason to take the long walk.",
+        "A little green, a little breeze, a better mood.",
+        "Could sit here and do absolutely nothing.",
+        "This is what I needed today."
+      ],
+
+      birthday: [
+        "Another year older, still working it out.",
+        "Grateful for another trip around the sun.",
+        "Today's agenda: cake and good people.",
+        "A new age, same questionable decisions.",
+        "Keeping the wishes simple this year.",
+        "A little older and a little more sure of myself.",
+        "Made it to another chapter. Let's see what happens.",
+        "The birthday photos made the final cut.",
+        "More life, more lessons, more cake.",
+        "Feeling the love today.",
+        "A good day to be reminded of my people.",
+        "Here's to what this next year might bring.",
+        "Growing up, apparently.",
+        "Celebrating the person I'm still becoming.",
+        "Another year of learning as I go.",
+        "Cake first, reflection later.",
+        "A birthday that felt like me.",
+        "Thankful for the calls, messages, and little surprises.",
+        "Same me, fresh calendar page.",
+        "A few favourite people made the day.",
+        "No big plans, just a really good day.",
+        "Taking a moment to appreciate getting here.",
+        "Older by a year, wiser on some days.",
+        "This chapter starts with gratitude."
+      ],
+
+      work: [
+        "Quiet progress is still progress.",
+        "Building something I can be proud of.",
+        "One task at a time. That's the plan.",
+        "Learning more than I knew last month.",
+        "Some days are for big wins. Some are for showing up.",
+        "The work nobody sees still matters.",
+        "Trying to get a little better at the craft.",
+        "Less talking about the plan, more time on it.",
+        "A small win on a long project.",
+        "Figuring it out as I go.",
+        "Not where I want to be yet, but not where I started.",
+        "Good work takes the time it takes.",
+        "Today was mostly problem-solving and coffee.",
+        "Building skills one difficult task at a time.",
+        "The goal is to make tomorrow's work a little easier.",
+        "A reminder that progress isn't always a straight line.",
+        "Learning to enjoy the process, not just the result.",
+        "Getting there, even if the timeline keeps changing.",
+        "One more thing learned the hard way.",
+        "Consistency is less exciting than inspiration, but it works.",
+        "Doing the work before waiting to feel ready.",
+        "Small improvements have a way of adding up.",
+        "A productive day doesn't always look impressive.",
+        "Keeping my head down and moving forward."
+      ],
+
+      night: [
+        "The thoughts get louder after midnight.",
+        "One of those nights where sleep can wait.",
+        "The city feels like a different place this late.",
+        "Late hours, low volume, too many thoughts.",
+        "Some conversations happen only in your head.",
+        "The night makes everything feel a little more honest.",
+        "Up late for no particularly good reason.",
+        "A quiet street and a busy mind.",
+        "Night drives solve nothing and somehow help anyway.",
+        "The world slows down, but my brain didn't get the memo.",
+        "Somewhere between tired and not ready to sleep.",
+        "A little peace after a long day.",
+        "The best songs hit differently at this hour.",
+        "Saving the overthinking for tomorrow. Maybe.",
+        "A view for people who are still awake.",
+        "No plans, just letting the night pass.",
+        "The hour when old memories show up uninvited.",
+        "Quiet outside, anything but quiet in my head.",
+        "The moon is doing its thing again.",
+        "Some nights are meant for doing absolutely nothing.",
+        "One last scroll, said an hour ago.",
+        "Everything looks softer after dark.",
+        "Taking the long way home under streetlights.",
+        "It's late. That's the whole update."
+      ],
+
+      aesthetic: [
+        "A little imperfect, exactly as it was.",
+        "Keeping the parts that felt like me.",
+        "Nothing extra, nothing missing.",
+        "The light, the mood, the moment.",
+        "Somewhere between simple and enough.",
+        "A detail I almost walked past.",
+        "Less arranged, more remembered.",
+        "The colour of a slow afternoon.",
+        "A quiet kind of favourite.",
+        "Soft light, ordinary life.",
+        "I liked the way this moment looked.",
+        "Nothing loud about it. That's why I like it.",
+        "A frame from a day moving at its own pace.",
+        "The beauty was in the details.",
+        "Leaving a little room for the imperfect.",
+        "An unplanned favourite.",
+        "The kind of simple I keep coming back to.",
+        "A moment without much explanation.",
+        "Just enough to remember how it felt.",
+        "A little calm in the camera roll.",
+        "This colour palette happened by accident.",
+        "Some things look better left untouched.",
+        "A small scene from an ordinary day.",
+        "No filter for the feeling."
+      ],
+
+      celebration: [
+        "A good reason to get everyone together.",
+        "Dressed up and glad I came.",
+        "The photos don't show half the fun.",
+        "A night worth staying up for.",
+        "We made a proper occasion of it.",
+        "Good people, good music, no complaints.",
+        "One for the family album.",
+        "The kind of evening that goes by too fast.",
+        "A little dressed up for a change.",
+        "Celebrating the moment while it's here.",
+        "The room was full of people I love.",
+        "A day we will bring up again and again.",
+        "The best part was everyone being there.",
+        "A few pictures from a very good night.",
+        "Made some memories between all the photos.",
+        "One of those days you wish you could replay.",
+        "All the small details made it special.",
+        "A reason to pause and be happy.",
+        "The occasion was good. The company was better.",
+        "Still smiling about how this turned out.",
+        "A little celebration never hurt.",
+        "A lovely day with my favourite people.",
+        "The sort of night that becomes a story.",
+        "Happy we got to be there for this."
+      ]
+    };
+
+    const categorySelect =
+      document.getElementById('category') as HTMLSelectElement | null;
+    const generateButton =
+      document.getElementById('generate') as HTMLButtonElement | null;
+    const moreButton =
+      document.getElementById('more') as HTMLButtonElement | null;
+    const results = document.getElementById('results') as HTMLElement | null;
+    const feedback = document.getElementById('feedback') as HTMLElement | null;
+
+    let lastCategory = 'all';
+    let shownCaptions = new Set<string>();
+    let currentBatch: string[] = [];
+    const batchSize = 5;
+
+    function shuffle<T>(items: T[]): T[] {
+      const shuffled = [...items];
+
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      return shuffled;
+    }
+
+    function getPool(category: string): string[] {
+      if (category === 'all') {
+        return Object.values(captions).flat();
+      }
+
+      return captions[category] ?? [];
+    }
+
+    function pickBatch(category: string, count: number): string[] {
+      const pool = getPool(category);
+      const available = pool.filter(
+        (caption) => !shownCaptions.has(caption)
+      );
+
+      const batch = shuffle(available).slice(0, count);
+
+      batch.forEach((caption) => shownCaptions.add(caption));
+
+      return batch;
+    }
+
+    function updateMoreButton(): void {
+      if (!moreButton) return;
+
+      const remaining = getPool(lastCategory).some(
+        (caption) => !shownCaptions.has(caption)
+      );
+
+      moreButton.hidden = !remaining || currentBatch.length === 0;
+    }
+
+    function showEmptyState(message: string): void {
+      if (!results) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'empty-state';
+
+      const icon = document.createElement('span');
+      icon.className = 'empty-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = '✳';
+
+      const title = document.createElement('p');
+      title.className = 'empty-title';
+      title.textContent = message;
+
+      const description = document.createElement('p');
+      description.className = 'empty-copy';
+      description.textContent = 'Try another category to find more captions.';
+
+      wrapper.append(icon, title, description);
+      results.replaceChildren(wrapper);
+    }
+
+    function createCaptionCard(caption: string): HTMLElement {
+      const card = document.createElement('article');
+      card.className = 'caption-card';
+
+      const text = document.createElement('p');
+      text.className = 'caption-text';
+      text.textContent = caption;
+
+      const copy = document.createElement('button');
+      copy.className = 'copy-button';
+      copy.type = 'button';
+      copy.textContent = 'Copy';
+      copy.setAttribute('aria-label', `Copy caption: ${caption}`);
+
+      copy.addEventListener('click', async () => {
+        if (!feedback) return;
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(caption);
+          } else {
+            const temporary = document.createElement('textarea');
+            temporary.value = caption;
+            temporary.setAttribute('readonly', '');
+            temporary.style.position = 'fixed';
+            temporary.style.opacity = '0';
+            document.body.appendChild(temporary);
+            temporary.select();
+
+            const copied = document.execCommand('copy');
+            temporary.remove();
+
+            if (!copied) {
+              throw new Error('Clipboard copy failed');
+            }
+          }
+
+          copy.textContent = 'Copied ✓';
+          feedback.textContent = 'Caption copied to clipboard.';
+
+          window.setTimeout(() => {
+            copy.textContent = 'Copy';
+          }, 1400);
+        } catch {
+          feedback.textContent =
+            'Copy was blocked. Select the caption text and copy it manually.';
+        }
+      });
+
+      card.append(text, copy);
+
+      return card;
+    }
+
+    function renderBatch(append: boolean): void {
+      if (!results) return;
+
+      if (!append) {
+        currentBatch = [];
+        results.replaceChildren();
+      }
+
+      const batch = pickBatch(lastCategory, batchSize);
+
+      if (!batch.length) {
+        if (!append || currentBatch.length === 0) {
+          showEmptyState(
+            'You have seen all the captions in this category.'
+          );
+        }
+
+        updateMoreButton();
+
+        if (feedback) {
+          feedback.textContent = 'Choose another category for fresh captions.';
+        }
+
+        return;
+      }
+
+      currentBatch = [...currentBatch, ...batch];
+
+      const fragment = document.createDocumentFragment();
+
+      batch.forEach((caption) => {
+        fragment.appendChild(createCaptionCard(caption));
+      });
+
+      results.appendChild(fragment);
+      updateMoreButton();
+
+      if (feedback) {
+        feedback.textContent = `${currentBatch.length} captions shown.`;
+      }
+    }
+
+    generateButton?.addEventListener('click', () => {
+      lastCategory = categorySelect?.value || 'all';
+      shownCaptions = new Set<string>();
+      currentBatch = [];
+
+      if (feedback) feedback.textContent = '';
+
+      renderBatch(false);
+    });
+
+    moreButton?.addEventListener('click', () => {
+      renderBatch(true);
+    });
+
+    categorySelect?.addEventListener('change', () => {
+      if (feedback) feedback.textContent = '';
+    });
+  </script>
+
+  <style>
+    :global(*) {
+      box-sizing: border-box;
+    }
+
+    :global(html) {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    :global(body) {
+      margin: 0;
+      background: #faf9f7;
+      color: #24212b;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    :global(button),
+    :global(select) {
+      font: inherit;
+    }
+
+    :global(button),
+    :global(select),
+    :global(a) {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :global(button:focus-visible),
+    :global(select:focus-visible),
+    :global(a:focus-visible) {
+      outline: 3px solid #a79aff;
+      outline-offset: 4px;
+    }
+
+    :global(a) {
+      color: inherit;
+    }
+
+    :global(button) {
+      touch-action: manipulation;
+    }
+
+    .site-shell {
+      width: 100%;
+      min-height: 100vh;
+      overflow-wrap: anywhere;
+    }
+
+    .topbar,
+    .footer {
+      width: min(100% - 48px, 1040px);
+      margin-inline: auto;
+    }
+
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid #eae7e3;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-mark {
+      width: 33px;
+      height: 33px;
+      flex: 0 0 33px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #6f58d9;
+      color: #fff;
+      font-size: 19px;
+      font-weight: 850;
+    }
+
+    .top-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #e4e0ec;
+      border-radius: 10px;
+      background: #fff;
+      color: #393044;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+
+    .top-link:hover {
+      background: #f2efff;
+      border-color: #d5caff;
+    }
+
+    main {
+      width: min(100% - 40px, 680px);
+      margin-inline: auto;
+    }
+
+    .hero {
+      padding: clamp(55px, 9vw, 91px) 0 47px;
+      text-align: center;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      max-width: 100%;
+      margin-bottom: 24px;
+      padding: 9px 12px;
+      border: 1px solid #e9e3ff;
+      border-radius: 100px;
+      background: #f4f0ff;
+      color: #6651bc;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border-radius: 50%;
+      background: #7a62df;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(34px, 6.5vw, 59px);
+      font-weight: 820;
+      line-height: 1.14;
+      letter-spacing: -2.6px;
+    }
+
+    .hero h1 span {
+      color: #775ee0;
+    }
+
+    .hero-copy {
+      width: min(100%, 465px);
+      margin: 19px auto 0;
+      color: #77717e;
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 47px;
+      margin-top: 23px;
+      padding: 12px 20px;
+      border: 1px solid #6f58d9;
+      border-radius: 10px;
+      background: #6f58d9;
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 750;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .hero-cta:hover {
+      background: #5c46c2;
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 21px;
+      margin-top: 26px;
+      color: #77717e;
+      font-size: 10px;
+    }
+
+    .hero-meta > span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta > span > span {
+      color: #816ce0;
+      font-size: 13px;
+    }
+
+    .generator-section {
+      margin-top: 10px;
+      scroll-margin-top: 20px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #7864cc;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 1.4px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(22px, 4vw, 29px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.3;
+    }
+
+    .section-copy {
+      margin: 7px 0 0;
+      color: #817b87;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .studio-icon {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #e8e0ff;
+      border-radius: 13px;
+      background: #f3efff;
+      color: #7258d7;
+      font-size: 22px;
+    }
+
+    .tool {
+      min-width: 0;
+      padding: clamp(16px, 4vw, 27px);
+      border: 1px solid #e9e5ec;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 14px 45px rgb(42 30 65 / 4%);
+    }
+
+    .form-step {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #e9e3ff;
+      border-radius: 9px;
+      background: #f5f2ff;
+      color: #7159ce;
+      font-size: 10px;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .step-content {
+      min-width: 0;
+    }
+
+    .step-content label {
+      display: block;
+      margin: 3px 0 5px;
+      color: #292530;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .field-hint {
+      margin: 0 0 13px;
+      color: #89838f;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .step-content select {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 48px;
+      padding: 12px 36px 12px 12px;
+      border: 1px solid #e4dfea;
+      border-radius: 10px;
+      background-color: #fdfcfe;
+      color: #302a39;
+      cursor: pointer;
+      outline-offset: 3px;
+      font-size: 12px;
+      line-height: 1.5;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .step-content select:hover {
+      border-color: #c8bce9;
+    }
+
+    .step-content select:focus {
+      border-color: #8b75e5;
+      box-shadow: 0 0 0 3px rgb(126 101 221 / 11%);
+    }
+
+    .primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 12px;
+      padding: 12px 16px;
+      border: 1px solid #6f58d9;
+      border-radius: 10px;
+      background: #6f58d9;
+      color: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.5;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .primary:hover {
+      background: #5c46c2;
+      transform: translateY(-1px);
+    }
+
+    .primary:active,
+    .hero-cta:active {
+      transform: translateY(0);
+    }
+
+    .results-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 28px 0 15px;
+      padding-top: 22px;
+      border-top: 1px solid #efecf1;
+    }
+
+    .results-title-group {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .results-title-group h3 {
+      margin: 0;
+      color: #292530;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    .results-title-group p {
+      margin: 5px 0 0;
+      color: #89838f;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .results-badge {
+      padding: 7px 9px;
+      border: 1px solid #ece7f7;
+      border-radius: 7px;
+      background: #faf8ff;
+      color: #7965bd;
+      font-size: 8px;
+      font-weight: 850;
+      letter-spacing: 0.8px;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .caption-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid #ece8f0;
+      border-radius: 11px;
+      background: #fdfcfe;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .caption-card:hover {
+      border-color: #d8cef5;
+      background: #fcfaff;
+    }
+
+    .caption-text {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin: 0;
+      color: #38323f;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      min-width: 69px;
+      min-height: 35px;
+      padding: 7px 10px;
+      border: 1px solid #e2dced;
+      border-radius: 8px;
+      background: #fff;
+      color: #6650bb;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 750;
+      line-height: 1.5;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+
+    .copy-button:hover {
+      border-color: #c8b8f3;
+      background: #f4f0ff;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      padding: 31px 18px;
+      border: 1px dashed #ded6ea;
+      border-radius: 12px;
+      background: #fcfbfe;
+      text-align: center;
+    }
+
+    .empty-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 13px;
+      border-radius: 12px;
+      background: #f0ebff;
+      color: #775edb;
+      font-size: 22px;
+    }
+
+    .empty-title {
+      margin: 0;
+      color: #393242;
+      font-size: 13px;
+      font-weight: 750;
+      line-height: 1.6;
+    }
+
+    .empty-copy {
+      max-width: 310px;
+      margin: 8px 0 0;
+      color: #89838f;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .text-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      min-height: 43px;
+      margin-top: 13px;
+      padding: 10px;
+      border: 1px solid #e8e0f6;
+      border-radius: 10px;
+      background: #f8f5ff;
+      color: #6b53c5;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 750;
+      transition: background 160ms ease;
+    }
+
+    .text-button:hover {
+      background: #eee8ff;
+    }
+
+    .text-button[hidden] {
+      display: none !important;
+    }
+
+    .privacy-note {
+      margin: 17px 0 0;
+      color: #98919d;
+      text-align: center;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    #feedback {
+      min-height: 0;
+      margin: 8px 0 0;
+      color: #6650bb;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .closing {
+      padding: 70px 0 75px;
+      text-align: center;
+    }
+
+    .closing-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 18px;
+      border: 1px solid #e8e0ff;
+      border-radius: 12px;
+      background: #f3efff;
+      color: #775edb;
+      font-size: 22px;
+    }
+
+    .closing h2 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 39px);
+      font-weight: 820;
+      letter-spacing: -1.5px;
+      line-height: 1.25;
+    }
+
+    .closing h2 span {
+      color: #775edb;
+    }
+
+    .closing > p {
+      max-width: 390px;
+      margin: 13px auto 0;
+      color: #817b87;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .closing-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 42px;
+      margin-top: 14px;
+      padding: 9px 0;
+      color: #6f58d9;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .closing-link:hover,
+    .footer-link:hover {
+      color: #4f39b2;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 16px;
+      min-height: 79px;
+      border-top: 1px solid #eae7e3;
+    }
+
+    .footer-brand {
+      justify-self: start;
+      font-size: 12px;
+    }
+
+    .footer-brand .brand-mark {
+      width: 29px;
+      height: 29px;
+      flex-basis: 29px;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+
+    .footer > p {
+      margin: 0;
+      color: #8c8590;
+      text-align: center;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .footer-link {
+      justify-self: end;
+      color: #77707f;
+      text-decoration: none;
+      text-align: right;
+      font-size: 10px;
+      font-weight: 650;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 900px) {
+      main {
+        width: min(100% - 64px, 680px);
+      }
+
+      .hero {
+        padding-top: 88px;
+        padding-bottom: 53px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar,
+      .footer {
+        width: calc(100% - 36px);
+      }
+
+      main {
+        width: calc(100% - 36px);
+      }
+
+      .topbar {
+        min-height: 67px;
+      }
+
+      .brand {
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .brand-mark {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+        border-radius: 9px;
+      }
+
+      .top-link {
+        min-height: 38px;
+        gap: 6px;
+        padding: 8px 10px;
+        font-size: 10px;
+      }
+
+      .hero {
+        padding: 49px 0 34px;
+      }
+
+      .hero-label {
+        margin-bottom: 20px;
+        padding: 8px 10px;
+        font-size: 8px;
+        letter-spacing: 0.7px;
+      }
+
+      .hero h1 {
+        font-size: clamp(31px, 7.5vw, 46px);
+        letter-spacing: -1.8px;
+        line-height: 1.17;
+      }
+
+      .hero-copy {
+        margin-top: 15px;
+        font-size: 12px;
+        line-height: 1.9;
+      }
+
+      .hero-cta {
+        min-height: 44px;
+        margin-top: 19px;
+        padding: 11px 16px;
+        font-size: 11px;
+      }
+
+      .hero-meta {
+        gap: 9px 13px;
+        margin-top: 22px;
+        font-size: 9px;
+      }
+
+      .section-heading {
+        gap: 11px;
+        margin-bottom: 16px;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(21px, 5vw, 26px);
+      }
+
+      .studio-icon {
+        width: 37px;
+        height: 37px;
+        flex-basis: 37px;
+        border-radius: 11px;
+      }
+
+      .tool {
+        padding: 17px 13px;
+        border-radius: 14px;
+      }
+
+      .form-step {
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 9px;
+      }
+
+      .step-number {
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
+        border-radius: 8px;
+        font-size: 9px;
+      }
+
+      .step-content label {
+        font-size: 13px;
+      }
+
+      .field-hint {
+        font-size: 10px;
+      }
+
+      .step-content select {
+        min-height: 46px;
+        padding-left: 10px;
+        font-size: 11px;
+      }
+
+      .primary {
+        min-height: 46px;
+        font-size: 11px;
+      }
+
+      .results-heading {
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 23px;
+        padding-top: 19px;
+      }
+
+      .results-title-group {
+        gap: 8px;
+      }
+
+      .results-title-group h3 {
+        font-size: 13px;
+      }
+
+      .results-title-group p {
+        max-width: 225px;
+        font-size: 9px;
+      }
+
+      .results-badge {
+        padding: 6px 7px;
+        font-size: 7px;
+        letter-spacing: 0.4px;
+      }
+
+      .caption-card {
+        align-items: flex-start;
+        gap: 9px;
+        padding: 12px 9px;
+        border-radius: 9px;
+      }
+
+      .caption-text {
+        font-size: 11px;
+        line-height: 1.85;
+      }
+
+      .copy-button {
+        min-width: 58px;
+        min-height: 33px;
+        padding: 6px 7px;
+        font-size: 9px;
+      }
+
+      .empty-state {
+        padding: 25px 12px;
+      }
+
+      .empty-title {
+        font-size: 12px;
+      }
+
+      .empty-copy {
+        font-size: 10px;
+      }
+
+      .closing {
+        padding: 53px 0 59px;
+      }
+
+      .closing h2 {
+        font-size: clamp(27px, 7vw, 35px);
+        letter-spacing: -1.2px;
+      }
+
+      .closing > p {
+        max-width: 330px;
+        font-size: 11px;
+      }
+
+      .footer {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 11px;
+        padding-block: 15px;
+      }
+
+      .footer > p {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        text-align: left;
+      }
+
+      .footer-link {
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .topbar,
+      .footer,
+      main {
+        width: calc(100% - 28px);
+      }
+
+      .brand {
+        gap: 6px;
+        font-size: 11px;
+      }
+
+      .brand-mark {
+        width: 27px;
+        height: 27px;
+        flex-basis: 27px;
+        font-size: 16px;
+      }
+
+      .top-link {
+        gap: 5px;
+        padding-inline: 7px;
+        font-size: 9px;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-label {
+        font-size: 7px;
+        letter-spacing: 0.4px;
+      }
+
+      .hero h1 {
+        font-size: clamp(28px, 8vw, 32px);
+        letter-spacing: -1.4px;
+      }
+
+      .hero-meta {
+        gap: 8px 10px;
+        font-size: 8px;
+      }
+
+      .section-heading h2 {
+        font-size: 20px;
+      }
+
+      .tool {
+        padding: 14px 10px;
+      }
+
+      .form-step {
+        grid-template-columns: 25px minmax(0, 1fr);
+        gap: 7px;
+      }
+
+      .step-number {
+        width: 25px;
+        height: 25px;
+        flex-basis: 25px;
+        font-size: 8px;
+      }
+
+      .results-title-group {
+        gap: 6px;
+      }
+
+      .results-title-group p {
+        max-width: 175px;
+      }
+
+      .results-badge {
+        padding-inline: 5px;
+        font-size: 6px;
+      }
+
+      .caption-card {
+        gap: 6px;
+        padding: 10px 7px;
+      }
+
+      .caption-text {
+        font-size: 10px;
+      }
+
+      .copy-button {
+        min-width: 51px;
+        padding-inline: 5px;
+        font-size: 8px;
+      }
+
+      .footer-brand {
+        font-size: 11px;
+      }
+
+      .footer-link {
+        font-size: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      :global(html) {
+        scroll-behavior: auto;
+      }
+
+      :global(*),
+      :global(*::before),
+      :global(*::after) {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</BaseLayout>
