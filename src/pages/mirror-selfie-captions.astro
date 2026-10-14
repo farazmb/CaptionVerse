@@ -1,0 +1,411 @@
+
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Mirror Selfie Captions — Short, Cool & Aesthetic';
+const description =
+  'Find mirror selfie captions for Instagram, from short and aesthetic lines to funny, confident and gym mirror captions. Copy your favorite instantly.';
+
+const captions = [
+  { text: 'The mirror understood the assignment.', category: 'Funny' },
+  { text: 'A moment before the next chapter.', category: 'Aesthetic' },
+  { text: 'Caught between the fit and the reflection.', category: 'Cool' },
+  { text: 'Proof I actually left my room.', category: 'Funny' },
+  { text: 'Just checking in with myself.', category: 'Minimal' },
+  { text: 'The outfit deserved its own moment.', category: 'Style' },
+  { text: 'No occasion. Just felt good.', category: 'Confident' },
+  { text: 'A little effort, a better mood.', category: 'Style' },
+  { text: 'Reflection looks different these days.', category: 'Aesthetic' },
+  { text: 'Fit check: passed.', category: 'Funny' },
+  { text: 'Getting comfortable being seen.', category: 'Confident' },
+  { text: 'Current mood, front camera off.', category: 'Cool' },
+  { text: 'Somewhere between ready and running late.', category: 'Funny' },
+  { text: 'The details make the look.', category: 'Style' },
+  { text: 'One mirror, a hundred moods.', category: 'Aesthetic' },
+  { text: 'Looking like I have plans.', category: 'Funny' },
+  { text: 'Quiet confidence hits different.', category: 'Confident' },
+  { text: 'Same mirror, different mindset.', category: 'Minimal' },
+  { text: 'A good outfit fixes the plot.', category: 'Style' },
+  { text: 'No photographer? No problem.', category: 'Cool' },
+  { text: 'A little reminder to show up for myself.', category: 'Confident' },
+  { text: 'This angle gets me.', category: 'Minimal' },
+  { text: 'The lighting and I finally agreed.', category: 'Funny' },
+  { text: 'Just me, my fit, and the reflection.', category: 'Aesthetic' },
+];
+
+const categories = ['All', 'Short', 'Aesthetic', 'Funny', 'Cool', 'Style', 'Confident'];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/mirror-selfie-captions/">
+  <main class="page">
+    <a class="back" href="/">← CaptionVerse home</a>
+
+    <header class="hero">
+      <span class="eyebrow">THE MIRROR SELFIE EDIT</span>
+      <h1>Mirror Selfie Captions</h1>
+      <p>
+        Got the outfit, the angle and the lighting? Find a caption to finish
+        the post. Browse short, aesthetic, funny and confident mirror selfie
+        captions, then copy the one that fits.
+      </p>
+      <div class="stats">
+        <span>24 captions</span>
+        <span>Free to use</span>
+        <span>Instant copy</span>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Caption filters">
+      <label for="filter">Choose your mood</label>
+      <select id="filter">
+        {categories.map((category) => (
+          <option value={category}>{category === 'All' ? 'All captions' : category}</option>
+        ))}
+        <option value="Minimal">Minimal</option>
+      </select>
+    </section>
+
+    <section class="caption-grid" aria-label="Mirror selfie captions">
+      {captions.map((caption, index) => (
+        <article
+          class="caption-card"
+          data-category={caption.category}
+          data-short={caption.text.length <= 32 ? 'true' : 'false'}
+        >
+          <div class="card-top">
+            <span class="number">{String(index + 1).padStart(2, '0')}</span>
+            <span class="tag">{caption.category}</span>
+          </div>
+          <p class="caption-text">{caption.text}</p>
+          <button class="copy-btn" type="button" data-copy={caption.text}>
+            <span>Copy caption</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </article>
+      ))}
+    </section>
+
+    <p id="result-count" class="result-count" aria-live="polite">Showing 24 captions</p>
+
+    <section class="tips">
+      <h2>Short mirror selfie captions</h2>
+      <p>
+        A mirror selfie doesn't always need a long caption. A few words can
+        keep attention on the photo, outfit or mood. Try a short line when
+        the picture already says enough.
+      </p>
+
+      <h2>Funny and confident mirror captions</h2>
+      <p>
+        Use a funny caption for a casual fit check or a confident line when
+        you want a more polished feel. The best caption sounds natural with
+        your photo instead of trying too hard.
+      </p>
+
+      <h2>More Instagram caption ideas</h2>
+      <p>
+        Explore <a href="/">CaptionVerse</a> for captions for boys, selfies,
+        friendship, cars, travel and everyday moments.
+      </p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    width: min(1080px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 28px 0 76px;
+    color: var(--text, #24212b);
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: var(--text-muted, #77717f);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .back:hover,
+  .tips a:hover {
+    text-decoration: underline;
+  }
+
+  .hero {
+    padding: clamp(30px, 7vw, 70px) clamp(22px, 6vw, 64px);
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 28px;
+    background:
+      radial-gradient(ellipse at 90% 0%, #f7e2ef 0, transparent 45%),
+      radial-gradient(ellipse at 0% 100%, #e5e8ff 0, transparent 45%),
+      var(--surface, #fff);
+  }
+
+  .eyebrow {
+    color: #8656a3;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+  }
+
+  h1 {
+    max-width: 750px;
+    margin: 16px 0;
+    font-size: clamp(2.15rem, 6vw, 4.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.055em;
+  }
+
+  .hero > p {
+    max-width: 640px;
+    color: var(--text-muted, #716b78);
+    font-size: clamp(1rem, 2vw, 1.12rem);
+    line-height: 1.8;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .stats span,
+  .tag {
+    padding: 7px 11px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 100px;
+    background: var(--surface, #fff);
+    font-size: 0.78rem;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 32px 0 18px;
+  }
+
+  .toolbar label {
+    font-size: 0.95rem;
+    font-weight: 750;
+  }
+
+  select {
+    width: min(100%, 230px);
+    padding: 12px 14px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 12px;
+    background: var(--surface, #fff);
+    color: inherit;
+    font: inherit;
+  }
+
+  .caption-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .caption-card {
+    display: flex;
+    min-width: 0;
+    min-height: 190px;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 18px;
+    background: var(--surface, #fff);
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .caption-card:hover {
+    transform: translateY(-3px);
+    border-color: #c7a5d9;
+  }
+
+  .caption-card[hidden] {
+    display: none;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .number {
+    color: var(--text-muted, #89828e);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tag {
+    color: #80509a;
+    background: #faf4ff;
+    white-space: nowrap;
+  }
+
+  .caption-text {
+    flex: 1;
+    margin: 22px 0;
+    font-size: 1.12rem;
+    font-weight: 650;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .copy-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 13px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+  }
+
+  .copy-btn:hover {
+    border-color: #a97bc1;
+    background: #fbf7ff;
+  }
+
+  .copy-btn:focus-visible,
+  select:focus-visible,
+  a:focus-visible {
+    outline: 3px solid #b68bce;
+    outline-offset: 3px;
+  }
+
+  .result-count {
+    margin: 18px 0 48px;
+    color: var(--text-muted, #77717f);
+    font-size: 0.85rem;
+  }
+
+  .tips {
+    max-width: 780px;
+    margin: 0 auto;
+    padding-top: 10px;
+  }
+
+  .tips h2 {
+    margin: 30px 0 10px;
+    font-size: clamp(1.2rem, 3vw, 1.55rem);
+    letter-spacing: -0.025em;
+  }
+
+  .tips p {
+    color: var(--text-muted, #716b78);
+    line-height: 1.85;
+  }
+
+  .tips a {
+    color: #8656a3;
+    font-weight: 650;
+  }
+
+  @media (max-width: 800px) {
+    .caption-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .page {
+      width: min(100% - 24px, 1080px);
+      padding-top: 18px;
+    }
+
+    .back {
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      border-radius: 20px;
+    }
+
+    .caption-grid {
+      grid-template-columns: 1fr;
+      gap: 11px;
+    }
+
+    .caption-card {
+      min-height: 160px;
+      padding: 17px;
+    }
+
+    .toolbar {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    select {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caption-card {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const filter = document.querySelector<HTMLSelectElement>('#filter');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.caption-card'));
+  const count = document.querySelector<HTMLElement>('#result-count');
+
+  function updateFilter() {
+    const selected = filter?.value ?? 'All';
+    let visible = 0;
+
+    cards.forEach((card) => {
+      let matches = selected === 'All' || card.dataset.category === selected;
+
+      if (selected === 'Short') {
+        matches = card.dataset.short === 'true';
+      }
+
+      card.hidden = !matches;
+      if (matches) visible++;
+    });
+
+    if (count) {
+      count.textContent = `Showing ${visible} caption${visible === 1 ? '' : 's'}`;
+    }
+  }
+
+  filter?.addEventListener('change', updateFilter);
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const text = button.dataset.copy;
+      if (!text) return;
+
+      const label = button.querySelector('span');
+
+      try {
+        await navigator.clipboard.writeText(text);
+        if (label) label.textContent = 'Copied!';
+      } catch {
+        if (label) label.textContent = 'Copy unavailable';
+      }
+
+      window.setTimeout(() => {
+        if (label) label.textContent = 'Copy caption';
+      }, 1500);
+    });
+  });
+</script>

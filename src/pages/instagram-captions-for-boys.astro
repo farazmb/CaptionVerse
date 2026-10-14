@@ -1,0 +1,393 @@
+
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Instagram Captions for Boys — Cool, Short & Stylish';
+const description =
+  'Find Instagram captions for boys, including cool, attitude, short, funny and selfie captions. Copy your favorite caption instantly.';
+const captions = [
+  { text: 'Less talk. More presence.', category: 'Cool' },
+  { text: 'Not everyone gets the same version of me.', category: 'Attitude' },
+  { text: 'Quietly building my own story.', category: 'Minimal' },
+  { text: 'No announcement. Just progress.', category: 'Motivation' },
+  { text: 'A little mystery never hurts.', category: 'Cool' },
+  { text: 'Comfortable in my own lane.', category: 'Minimal' },
+  { text: 'Real ones need no introduction.', category: 'Friendship' },
+  { text: 'Main character, no script.', category: 'Funny' },
+  { text: 'Good mood. Better memories.', category: 'Lifestyle' },
+  { text: 'Some days deserve a picture.', category: 'Selfie' },
+  { text: 'Confidence, without the noise.', category: 'Attitude' },
+  { text: 'Working on things you cannot see yet.', category: 'Motivation' },
+  { text: 'Just here for the plot.', category: 'Funny' },
+  { text: 'My pace. My path.', category: 'Minimal' },
+  { text: 'Out here collecting moments.', category: 'Lifestyle' },
+  { text: 'No filter on the mindset.', category: 'Selfie' },
+  { text: 'Less perfection, more personality.', category: 'Cool' },
+  { text: 'The best flex is being at peace.', category: 'Attitude' },
+  { text: 'Another day, another version of me.', category: 'Motivation' },
+  { text: 'Good company, no plans.', category: 'Friendship' },
+  { text: 'Casual look, serious playlist.', category: 'Funny' },
+  { text: 'Somewhere between focused and unbothered.', category: 'Lifestyle' },
+  { text: 'A photo, a feeling, a memory.', category: 'Selfie' },
+  { text: 'Growing without making a scene.', category: 'Motivation' },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/instagram-captions-for-boys/">
+  <main class="page">
+    <a class="back" href="/">← CaptionVerse home</a>
+
+    <header class="hero">
+      <span class="eyebrow">THE BOYS' CAPTION EDIT</span>
+      <h1>Instagram Captions for Boys</h1>
+      <p>
+        Cool, short, funny and attitude captions for your next Instagram post.
+        Find a line that fits your mood, then copy it in one tap.
+      </p>
+      <div class="stats">
+        <span>24 captions</span>
+        <span>Free to use</span>
+        <span>No signup</span>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="Caption filters">
+      <label for="filter">Find your vibe</label>
+      <select id="filter">
+        <option value="All">All captions</option>
+        <option value="Cool">Cool</option>
+        <option value="Attitude">Attitude</option>
+        <option value="Minimal">Short & minimal</option>
+        <option value="Selfie">Selfie</option>
+        <option value="Funny">Funny</option>
+        <option value="Motivation">Motivation</option>
+        <option value="Friendship">Friendship</option>
+        <option value="Lifestyle">Lifestyle</option>
+      </select>
+    </section>
+
+    <section class="caption-grid" id="caption-grid" aria-label="Captions">
+      {captions.map((caption, index) => (
+        <article class="caption-card" data-category={caption.category}>
+          <div class="card-top">
+            <span class="number">{String(index + 1).padStart(2, '0')}</span>
+            <span class="tag">{caption.category}</span>
+          </div>
+          <p class="caption-text">{caption.text}</p>
+          <button class="copy-btn" type="button" data-copy={caption.text}>
+            <span>Copy caption</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </article>
+      ))}
+    </section>
+
+    <p id="result-count" class="result-count" aria-live="polite">Showing 24 captions</p>
+
+    <section class="tips">
+      <h2>How to choose a good Instagram caption</h2>
+      <p>
+        Match the caption to the photo instead of choosing a line just because
+        it sounds cool. Short captions work well for simple selfies, while a
+        funny line can suit a casual photo with friends. Make it your own by
+        adding a personal detail or an emoji.
+      </p>
+      <h2>More caption ideas</h2>
+      <p>
+        Looking for another style? Explore
+        <a href="/">all CaptionVerse categories</a> for selfie, friendship,
+        car, travel, aesthetic and everyday captions.
+      </p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    width: min(1080px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 28px 0 76px;
+    color: var(--text, #24212b);
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: var(--text-muted, #77717f);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .back:hover,
+  .tips a:hover {
+    text-decoration: underline;
+  }
+
+  .hero {
+    padding: clamp(30px, 7vw, 70px) clamp(22px, 6vw, 64px);
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 28px;
+    background:
+      radial-gradient(ellipse at 90% 0%, #f5dff0 0, transparent 45%),
+      radial-gradient(ellipse at 0% 100%, #e8e8ff 0, transparent 45%),
+      var(--surface, #fff);
+  }
+
+  .eyebrow {
+    color: #8656a3;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+  }
+
+  h1 {
+    max-width: 750px;
+    margin: 16px 0;
+    font-size: clamp(2.15rem, 6vw, 4.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.055em;
+  }
+
+  .hero > p {
+    max-width: 640px;
+    color: var(--text-muted, #716b78);
+    font-size: clamp(1rem, 2vw, 1.12rem);
+    line-height: 1.8;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .stats span,
+  .tag {
+    padding: 7px 11px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 100px;
+    background: var(--surface, #fff);
+    font-size: 0.78rem;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 32px 0 18px;
+  }
+
+  .toolbar label {
+    font-size: 0.95rem;
+    font-weight: 750;
+  }
+
+  select {
+    width: min(100%, 230px);
+    padding: 12px 14px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 12px;
+    background: var(--surface, #fff);
+    color: inherit;
+    font: inherit;
+  }
+
+  .caption-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .caption-card {
+    display: flex;
+    min-width: 0;
+    min-height: 190px;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 18px;
+    background: var(--surface, #fff);
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .caption-card:hover {
+    transform: translateY(-3px);
+    border-color: #c7a5d9;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .number {
+    color: var(--text-muted, #89828e);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tag {
+    color: #80509a;
+    background: #faf4ff;
+    white-space: nowrap;
+  }
+
+  .caption-text {
+    flex: 1;
+    margin: 22px 0;
+    font-size: 1.12rem;
+    font-weight: 650;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .copy-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 13px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+  }
+
+  .copy-btn:hover {
+    border-color: #a97bc1;
+    background: #fbf7ff;
+  }
+
+  .copy-btn:focus-visible,
+  select:focus-visible,
+  a:focus-visible {
+    outline: 3px solid #b68bce;
+    outline-offset: 3px;
+  }
+
+  .result-count {
+    margin: 18px 0 48px;
+    color: var(--text-muted, #77717f);
+    font-size: 0.85rem;
+  }
+
+  .tips {
+    max-width: 780px;
+    margin: 0 auto;
+    padding-top: 10px;
+  }
+
+  .tips h2 {
+    margin: 30px 0 10px;
+    font-size: clamp(1.2rem, 3vw, 1.55rem);
+    letter-spacing: -0.025em;
+  }
+
+  .tips p {
+    color: var(--text-muted, #716b78);
+    line-height: 1.85;
+  }
+
+  .tips a {
+    color: #8656a3;
+    font-weight: 650;
+  }
+
+  @media (max-width: 800px) {
+    .caption-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .page {
+      width: min(100% - 24px, 1080px);
+      padding-top: 18px;
+    }
+
+    .back {
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      border-radius: 20px;
+    }
+
+    .caption-grid {
+      grid-template-columns: 1fr;
+      gap: 11px;
+    }
+
+    .caption-card {
+      min-height: 160px;
+      padding: 17px;
+    }
+
+    .toolbar {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    select {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caption-card {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const filter = document.querySelector<HTMLSelectElement>('#filter');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.caption-card'));
+  const count = document.querySelector<HTMLElement>('#result-count');
+
+  function updateFilter() {
+    const selected = filter?.value ?? 'All';
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const matches = selected === 'All' || card.dataset.category === selected;
+      card.hidden = !matches;
+      if (matches) visible++;
+    });
+
+    if (count) {
+      count.textContent = `Showing ${visible} caption${visible === 1 ? '' : 's'}`;
+    }
+  }
+
+  filter?.addEventListener('change', updateFilter);
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const text = button.dataset.copy;
+      if (!text) return;
+
+      const label = button.querySelector('span');
+
+      try {
+        await navigator.clipboard.writeText(text);
+        if (label) label.textContent = 'Copied!';
+      } catch {
+        if (label) label.textContent = 'Copy unavailable';
+      }
+
+      window.setTimeout(() => {
+        if (label) label.textContent = 'Copy caption';
+      }, 1500);
+    });
+  });
+</script>

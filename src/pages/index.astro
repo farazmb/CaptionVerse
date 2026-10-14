@@ -1820,3 +1820,148 @@ const description =
     }
   </style>
 </BaseLayout>
+
+<section class="seo-pages" aria-labelledby="caption-guides-title">
+  <div class="seo-pages-heading">
+    <span class="section-eyebrow">FIND YOUR WORDS</span>
+    <h2 id="caption-guides-title">Explore Caption Guides</h2>
+    <p>Find the right words for your next post, selfie, or Instagram moment.</p>
+  </div>
+
+  <div class="seo-pages-grid">
+    <a class="seo-page-card" href="/instagram-captions-for-boys/">
+      <span class="seo-page-icon" aria-hidden="true">✦</span>
+      <span class="seo-page-title">Instagram Captions for Boys</span>
+      <span class="seo-page-description">
+        Cool, short, funny and attitude captions for your next post.
+      </span>
+      <span class="seo-page-link">Explore captions <span aria-hidden="true">↗</span></span>
+    </a>
+
+    <a class="seo-page-card" href="/mirror-selfie-captions/">
+      <span class="seo-page-icon" aria-hidden="true">◉</span>
+      <span class="seo-page-title">Mirror Selfie Captions</span>
+      <span class="seo-page-description">
+        Find aesthetic, funny and confident captions for mirror selfies.
+      </span>
+      <span class="seo-page-link">Explore captions <span aria-hidden="true">↗</span></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .seo-pages {
+    width: min(1080px, calc(100% - 40px));
+    margin: 64px auto;
+  }
+
+  .seo-pages-heading {
+    margin-bottom: 24px;
+  }
+
+  .section-eyebrow {
+    color: #8656a3;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .seo-pages-heading h2 {
+    margin: 10px 0;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: -0.04em;
+  }
+
+  .seo-pages-heading p {
+    color: var(--text-muted, #77717f);
+    line-height: 1.7;
+  }
+
+  .seo-pages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .seo-page-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    border: 1px solid var(--border, #e9e3ed);
+    border-radius: 20px;
+    background: var(--surface, #fff);
+    color: var(--text, #24212b);
+    text-decoration: none;
+    transition: transform 160ms ease, border-color 160ms ease;
+  }
+
+  .seo-page-card:hover {
+    transform: translateY(-3px);
+    border-color: #c7a5d9;
+  }
+
+  .seo-page-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    margin-bottom: 18px;
+    border-radius: 13px;
+    background: #f6ebfb;
+    color: #80509a;
+    font-size: 1.35rem;
+  }
+
+  .seo-page-title {
+    font-size: 1.12rem;
+    font-weight: 750;
+  }
+
+  .seo-page-description {
+    margin-top: 9px;
+    color: var(--text-muted, #77717f);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
+  .seo-page-link {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border, #e9e3ed);
+    color: #8656a3;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .seo-page-card:focus-visible {
+    outline: 3px solid #b68bce;
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .seo-pages {
+      width: calc(100% - 24px);
+      margin: 44px auto;
+    }
+
+    .seo-pages-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .seo-page-card {
+      padding: 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seo-page-card {
+      transition: none;
+    }
+  }
+</style>
